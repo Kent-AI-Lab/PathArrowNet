@@ -1,11 +1,11 @@
-# PathArrowNet
+# PathArrowNet and StrictKEGG
 
 Inference and evaluation code for **PathArrowNet: Learning Directed Pathway Relations from Experimental Interaction
 Networks with Leakage Control**.
 
 PathArrowNet ranks the directed downstream KEGG Orthology (KO) groups of a source KO among all 11,620 KOs of the human KEGG
 maps. It propagates a query-conditioned representation over training KEGG relations and STRING experimental interactions,
-with frozen ESM2 protein features on every node. StrictKEGG, the benchmark used in the paper, groups overlapping maps,
+with frozen ESM2 protein features on every node. **StrictKEGG**, the benchmark used in the paper, groups overlapping maps,
 assigns every directed relation to one split, removes reverse edges of held-out relations and ranks against the full
 candidate set.
 
