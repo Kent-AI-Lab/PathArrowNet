@@ -1,0 +1,22 @@
+# Inference config (model architecture + data). The training-only sections of the original run config (training
+# schedule, engine, loss and negative-sampling options) are not part of this release; the model was trained with
+# BioPathNet's official training loop (see README). Used by biopathnet_repro/leakage/bpn_infer.py.
+dataset:
+  class: biomedical_allent
+  path: ./BioPathNet/data/KEGG_KO_strict_s46_full_bg
+  include_factgraph: yes
+  
+task:
+  class: KnowledgeGraphCompletionBiomed
+  model:
+    class: NBFNet
+    input_dim: 32
+    hidden_dims: [32, 32, 32, 32, 32, 32]
+    message_func: distmult
+    aggregate_func: pna
+    short_cut: yes
+    layer_norm: yes
+    remove_one_hop: yes
+    dependent: yes
+  heterogeneous_evaluation: yes
+  full_batch_eval: yes

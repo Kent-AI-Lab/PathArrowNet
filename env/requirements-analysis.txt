@@ -1,0 +1,10 @@
+# Extra packages imported by some analysis / downstream scripts but NOT installed in the main environment.
+# These scripts were run in separate environments; versions below are the ones present in those environments on
+# 2026-10-21 and should be treated as known-good, not as an exact record of every run.
+pandas==2.3.3          # expansion/downstream (BioPathNet env version); paper env has 3.0.6
+scipy==1.15.3          # expansion/tcga_ft_check
+scikit-learn==1.7.2    # expansion/downstream, expansion/tcga_ft_check, expansion/extdb_ft/baselines.py
+joblib==1.6.0
+requests==2.34.2       # benchmark_v2/fetch_uniprot_*.py (UniProt REST)
+# esm (EvolutionaryScale, ESM-C ablation only: benchmark_v2/full/build_esmc_features.py) - version not recorded
+matplotlib==3.11.2     # paper_figures/ (paper env, Python 3.12.15)

@@ -1,0 +1,270 @@
+{
+  "dataset": "KEGG human pathway dataset (KO-level leakage-controlled split included)",
+  "version": "v1",
+  "frozen_at": "2026-09-26T14:48:53",
+  "n_files": 44,
+  "total_bytes": 186828724,
+  "params": {
+    "ko_split": {
+      "seed": "42",
+      "ratios": "0.8,0.1,0.1",
+      "min_train_class_frac": "0.6",
+      "group_threshold": "0.7",
+      "max_paths_per_pathway": "10000",
+      "window_lengths": "3,4,5,6",
+      "cap_per_edge": "3.0",
+      "enum_walk_limit": "300000"
+    },
+    "pipeline_key_counts": {
+      "pathways_parsed": 372,
+      "node_occurrences": 49357,
+      "relations": 22075,
+      "reaction_records": 4170
+    }
+  },
+  "source_versions": {
+    "goa_human_date-generated": "2026-07-28 16:23",
+    "goa_human_go-version": "http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn",
+    "go_basic_obo_data_version": "releases/2026-07-26",
+    "kgml_creation_date_range": "2009-11-17 .. 2026-09-14 (372 files)",
+    "kegg_rest_lists_fetched": "2026-09-25T14:52:18",
+    "kegg_uniprot_conv_fetched": "2026-09-25T08:11:37",
+    "uniprot_table_fetched": "2026-09-25T14:55:04",
+    "ncbi_gene2go_fetched": "2026-09-25T14:56:20",
+    "kegg_aaseq_fetch_completed": "2026-09-25 15:15:10",
+    "kegg_ko_entries_fetch_completed": "2026-09-25 16:06:52"
+  },
+  "code_md5": {
+    "KEGG_human_feasibility_v2.py": "2476df523ae6410f8ee0e86b283c360d",
+    "build_kegg_pathway_dataset.py": "8cbe63fb3349ec56b3b3ed540e0d077c",
+    "build_ko_leakage_free_split.py": "e9663f3877d3bf9d9791ca53d82fe456",
+    "freeze_dataset.py": "ff45192ef09d8605e5d1394e5826476a",
+    "kegg_pipeline/common.py": "4313f7e2a67375ed6cc2afd325f21a0f",
+    "kegg_pipeline/kgml.py": "d77868bebc8c68087662634feb89715d",
+    "kegg_pipeline/annotations.py": "01f4a0e151ddc8491e30a356653b0f80",
+    "kegg_pipeline/sampling.py": "1cee1bf6438e1479704ab1e23812538c",
+    "kegg_pipeline/report.py": "1a59fdb08d3978114d4452a61768ae99"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 4479,
+      "md5": "ca45512266db73cb7d56acd233be4753",
+      "rows": null
+    },
+    "entities.csv": {
+      "bytes": 2761609,
+      "md5": "6e647a431ee53b7d4efd9fdb9ae77c81",
+      "rows": 20763
+    },
+    "feasibility_report.csv": {
+      "bytes": 6979,
+      "md5": "92bcedf5c4df55e164540f3d55679ca4",
+      "rows": 95
+    },
+    "feasibility_report.md": {
+      "bytes": 22229,
+      "md5": "7558bb606657059663073e71ce9199a2",
+      "rows": null
+    },
+    "gene_edges.csv": {
+      "bytes": 6191269,
+      "md5": "b87c329ce6427d28c3421970ef52dd03",
+      "rows": 78657
+    },
+    "gene_go_mapping.csv": {
+      "bytes": 94927635,
+      "md5": "6fe57a7540970ab8553393c5d59e8f61",
+      "rows": 811232
+    },
+    "gene_go_terms_collapsed.csv": {
+      "bytes": 18958331,
+      "md5": "7331ffd4000790cd7bd69eb722568879",
+      "rows": 184085
+    },
+    "gene_graph_stats_by_pathway.csv": {
+      "bytes": 39653,
+      "md5": "2ba8c5af8fd47aff18f44fb969ab2f9f",
+      "rows": 372
+    },
+    "gene_sequences_kegg.faa": {
+      "bytes": 5276928,
+      "md5": "10b9434d289c67b1a03543ebca3d3aa0",
+      "rows": 8597
+    },
+    "gene_uniprot_mapping.csv": {
+      "bytes": 749566,
+      "md5": "7bcd51b3e5da252d3c731540091a6a09",
+      "rows": 9423
+    },
+    "gene_uniprot_pairs.csv": {
+      "bytes": 652473,
+      "md5": "be772c6a501ff2a547bf146b618c0c8d",
+      "rows": 10979
+    },
+    "kgml_relations.csv": {
+      "bytes": 2267889,
+      "md5": "650dfabc6f9cc79b1ffe525223e916df",
+      "rows": 22075
+    },
+    "ko_mapping.csv": {
+      "bytes": 1535675,
+      "md5": "d0b24a74908b8ad96d1a75cc3a81cd72",
+      "rows": 11620
+    },
+    "metabolic_compound_edges.csv": {
+      "bytes": 461044,
+      "md5": "cc2ea8bf6116b09c154896e6144f3444",
+      "rows": 6748
+    },
+    "metabolic_graph_stats_by_pathway.csv": {
+      "bytes": 32381,
+      "md5": "a47051a059f76915670fc137ccd67dd0",
+      "rows": 372
+    },
+    "node_occurrences.csv": {
+      "bytes": 8439644,
+      "md5": "c61d287b983503e1092b6c7f4c086115",
+      "rows": 49357
+    },
+    "path_enumeration_gene.csv": {
+      "bytes": 36560,
+      "md5": "e2e66c5b730227621283da57c81728d9",
+      "rows": 908
+    },
+    "path_enumeration_ko.csv": {
+      "bytes": 33200,
+      "md5": "a76348af40e5268ef8b2a78e2c4f2fc8",
+      "rows": 908
+    },
+    "reactions.csv": {
+      "bytes": 472135,
+      "md5": "d66a968ee1222fdb521ee7dc65ffe401",
+      "rows": 4170
+    },
+    "samples/gene_A_next_node.csv.gz": {
+      "bytes": 369790,
+      "md5": "a7db19f584ffe15c34cbf51c2573d1af",
+      "rows": 60524
+    },
+    "samples/gene_B_path_windows.csv.gz": {
+      "bytes": 10235871,
+      "md5": "5cbc6213d4c3d6d93fd4991d87895db7",
+      "rows": 1164234
+    },
+    "samples/gene_C_masked.csv.gz": {
+      "bytes": 17831209,
+      "md5": "65445a44a31cd9d14da0fcb5f50f1fe7",
+      "rows": 3313684
+    },
+    "samples/ko_A_next_node.csv.gz": {
+      "bytes": 198903,
+      "md5": "7d679626e31e73d42ebc70dd154ba4a6",
+      "rows": 32640
+    },
+    "samples/ko_B_path_windows.csv.gz": {
+      "bytes": 3747423,
+      "md5": "f07739e0465b670b9b131ac84021fbde",
+      "rows": 430490
+    },
+    "samples/ko_C_masked.csv.gz": {
+      "bytes": 6359736,
+      "md5": "ffcc7f1458409be4421af9a66579218e",
+      "rows": 1188277
+    },
+    "samples_per_pathway.csv": {
+      "bytes": 40936,
+      "md5": "a923a4d6d0230c01a99c2d576e370d2a",
+      "rows": 372
+    },
+    "sampling_strategy_stats.csv": {
+      "bytes": 9443,
+      "md5": "a1c0daa1fc6cb9f7ddfe4199dbfa3c98",
+      "rows": 34
+    },
+    "splits_ko/README.md": {
+      "bytes": 7045,
+      "md5": "a06f9f6d56a9730ce52658ed782a8561",
+      "rows": null
+    },
+    "splits_ko/edge_split.csv": {
+      "bytes": 804518,
+      "md5": "bacade57b1c6bf189702a530583814f7",
+      "rows": 16890
+    },
+    "splits_ko/leakage_checks.csv": {
+      "bytes": 1190,
+      "md5": "a9eaa88f25346a99764c6e0cd5a9f48d",
+      "rows": 34
+    },
+    "splits_ko/pathway_split.csv": {
+      "bytes": 18023,
+      "md5": "26d07ad73e0d033f66ac3bfe1b72c48c",
+      "rows": 227
+    },
+    "splits_ko/split_config.csv": {
+      "bytes": 180,
+      "md5": "ffbb474d8d17c85710f9b9cc919ffdea",
+      "rows": 8
+    },
+    "splits_ko/split_stats.csv": {
+      "bytes": 1059,
+      "md5": "d19e920c49de8c252f3d115eeebecb06",
+      "rows": 9
+    },
+    "splits_ko/test_A_next_node.csv.gz": {
+      "bytes": 27257,
+      "md5": "62ab3b3ed4a2c75ac1905c713975e94a",
+      "rows": 1669
+    },
+    "splits_ko/test_B_path_windows.csv.gz": {
+      "bytes": 21128,
+      "md5": "2c24bba3d867d1ba2ba96608f578dc88",
+      "rows": 2429
+    },
+    "splits_ko/test_C_masked.csv.gz": {
+      "bytes": 26039,
+      "md5": "442f584e8455c968470d583c997715e8",
+      "rows": 4510
+    },
+    "splits_ko/train_A_next_node.csv.gz": {
+      "bytes": 161491,
+      "md5": "e1b4b8cf386099a026e172b515752038",
+      "rows": 13464
+    },
+    "splits_ko/train_B_path_windows.csv.gz": {
+      "bytes": 1392884,
+      "md5": "5e2337bbfc586d06324ae1ebce49729c",
+      "rows": 169917
+    },
+    "splits_ko/train_C_masked.csv.gz": {
+      "bytes": 2345827,
+      "md5": "1fb63934e5680e90546fe839c30a3d06",
+      "rows": 423836
+    },
+    "splits_ko/val_A_next_node.csv.gz": {
+      "bytes": 27083,
+      "md5": "a72833ac0fc48cfdc99f02c42d693bc6",
+      "rows": 1690
+    },
+    "splits_ko/val_B_path_windows.csv.gz": {
+      "bytes": 38270,
+      "md5": "eceb77c623dc592ebddaf24f2b76c737",
+      "rows": 4674
+    },
+    "splits_ko/val_C_masked.csv.gz": {
+      "bytes": 49223,
+      "md5": "45cc6f03d1986286f0e1397cf253bcac",
+      "rows": 9973
+    },
+    "token_vocab_gene.csv": {
+      "bytes": 73006,
+      "md5": "d9054e568a0bca1c7d83a88e0279d462",
+      "rows": 4165
+    },
+    "token_vocab_ko.csv": {
+      "bytes": 171511,
+      "md5": "63787f38ec3c129c7379f110a37eac13",
+      "rows": 2873
+    }
+  }
+}
