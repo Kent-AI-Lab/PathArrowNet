@@ -1,0 +1,34 @@
+# environments and caches
+.venv/
+**/.venv/
+__pycache__/
+*.pyc
+.hf_cache/
+biopathnet_repro/BioPathNet/
+
+# data (KEGG-derived files are rebuilt locally and not redistributed)
+pathway/kegg_dataset/
+pathway/kegg_dataset_cache/
+pathway/kegg_features/
+pathway/kegg_splits_robustness/
+pathway/kegg_leaky_splits/
+pathway/kegg_feasibility_cache/
+pathway/benchmark_v2/splits/
+pathway/benchmark_v2/scores/
+pathway/benchmark_v2/out/
+pathway/expansion/**/cache/
+pathway/expansion/**/cache_kgml/
+pathway/expansion/**/data/
+pathway/expansion/**/results/
+pathway/expansion/**/tables/
+pathway/results/
+pathway/results_*.log
+
+# weights (see checkpoints/MANIFEST.md)
+checkpoints/**/*.pt
+checkpoints/**/*.pth
+checkpoints/*.tar
+checkpoints/patharrownet/
+
+# OS files
+.DS_Store
