@@ -40,9 +40,12 @@ Scripts locate the repository root from `$KEGG_HOME` or, if unset, from the mark
 
 ```
 python3.12 -m venv pathway/.venv
-pathway/.venv/bin/pip install -r env/requirements-main.txt        # install the torch wheel for your system from pytorch.org
+pathway/.venv/bin/pip install -r env/requirements-main.txt --extra-index-url https://download.pytorch.org/whl/cu128
 pathway/.venv/bin/pip install -r env/requirements-analysis.txt    # pandas / scipy / scikit-learn for some evaluations
 ```
+
+`torch==2.11.0+cu128` is served by the PyTorch index, hence `--extra-index-url`. On a machine without CUDA 12.8, install
+torch 2.11.0 for your system from pytorch.org first and drop the torch and `nvidia-*` lines from `requirements-main.txt`.
 
 Prediction and all evaluations run on CPU. BioPathNet inference needs its own environment (Python 3.10, TorchDrug):
 
@@ -62,7 +65,9 @@ changes over time, so a later rebuild can differ from our snapshot (KEGG REST, 2
 
 ```
 python KEGG_human_feasibility_v2.py && python build_kegg_pathway_dataset.py     # KGML maps, gene-to-KO links -> kegg_dataset/
-for s in 42 43 44 45 46; do python build_ko_leakage_free_split.py --seed $s; done # the five strict splits (seed 42 = split 1)
+python build_ko_leakage_free_split.py --seed 42                                  # split 1 -> kegg_dataset/splits_ko/
+for s in 43 44 45 46; do                                                         # splits 2-5 -> kegg_splits_robustness/seed<s>/
+  python build_ko_leakage_free_split.py --seed $s --out-dir kegg_splits_robustness/seed$s; done
 python benchmark_v2/full/build_full_candidates.py && python benchmark_v2/full/build_robustness_settings.py
 python benchmark_v2/build_sequence_task.py                                        # task S (path prefixes)
 python build_string_background.py                                                 # STRING v12 experimental >= 150, KO level
@@ -70,6 +75,9 @@ python benchmark_v2/fetch_uniprot_seq.py && python build_protein_features.py --p
 for st in strict_v1_full strict_s43_full strict_s44_full strict_s45_full strict_s46_full; do python kgml_relation_weights.py $st; done
 python benchmark_v2/leakage_checker.py && python audit_independent_checks.py      # the 22 cross-split checks
 ```
+
+KEGG REST limits the request rate. If a download stops with HTTP 429, rerun the same command with a longer pause
+(`python KEGG_human_feasibility_v2.py --sleep 1.0`); downloads resume from the cache.
 
 Other sources: STRING v12.0 (CC BY 4.0), ESM2 `facebook/esm2_t33_650M_UR50D` (MIT), SIGNOR (CC BY 4.0), WikiPathways
 (CC0), NCI-PID via Pathway Commons, Reactome (CC0), OmniPath `ligrecextra`, Replogle 2022 and Adamson 2016 / Norman 2019 from
@@ -144,7 +152,7 @@ All evaluations read score dumps and write one JSON file each to `pathway/result
 | Sec. 4.4-4.5 training scheme; Suppl. Table S12 | `python evaluation/training_scheme.py` |
 | Sec. 4.5 branch recall; Suppl. Fig. S3 | `python evaluation/branch_recall.py` |
 | Suppl. Table S3 (relation subtype, pathway class) | `python evaluation/error_by_type.py` |
-| Sec. 5.1 literature audit candidates; Suppl. S8 | `python evaluation/case_study.py` |
+| Sec. 5.1 literature audit candidates; Suppl. S8 | `expansion/extdb_eval/build_edges.py` and `build_edges_pid.py` (database edge tables), then `python evaluation/case_study.py` |
 | Sec. 5.1 zero-shot transfer and full-candidate ranking of SIGNOR / WikiPathways; Suppl. Fig. S2, Table S4 | `expansion/extdb_eval/build_edges.py`, `build_edges_pid.py`, `expansion/downstream/konbf_full_matrix_kgml.py`, `expansion/extdb_eval/konbf_dir_matrices_kgml.py`, `expansion/downstream/bpn_ko_scores.py`, then `expansion/extdb_eval/eval_zeroshot_kgml.py` and `eval_addendum_kgml.py`; ligand-receptor and Reactome pairs: `expansion/downstream/zs_kgml.py` |
 | Sec. 5.2 perturbation specificity; Fig. 4, Suppl. Table S6 | `expansion/downstream/perturb_prep.py`, `expansion/perturbseq/{prep_stats,build_relations}.py`, then `expansion/perturbseq/eval_replication_kgml.py orig4|nadig|vcc2025`; VCC 2025: `expansion/perturbseq/vcc2025/` |
 | Sec. 2.2 protocol inflation; Fig. 2a-c, Suppl. Table S8 | `build_leaky_splits.py`, `build_feng_style_splits.py`, `classic_link_prediction.py`, `evaluate_ko_baselines.py`, `benchmark_v2/dump_gnn.py` |
