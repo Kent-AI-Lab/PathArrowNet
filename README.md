@@ -117,7 +117,7 @@ python -m patharrownet.predict --run-dir <run dir> --setting strict_v1_full --du
 python -m patharrownet.predict --run-dir <run dir> --setting strict_v1_full --dump-benchmark --with-targets \
     --out benchmark_v2/scores/strict_v1_full/clean_nbf_kgml_revanchors/s42
 # seed average (mean of row z-scores over the seeds; no tuning)
-python benchmark_v2/improve/calib_ensemble.py --setting strict_v1_full --a clean_bpn_adapt --b clean_nbf_kgml \
+python benchmark_v2/improve/calib_ensemble.py --setting strict_v1_full --a clean_nbf_kgml --b clean_nbf_kgml \
     --name clean_nbf_kgml_seedavg --fixed 0,0,0
 # leakage audit of the inference graph
 python -m patharrownet.graph_audit --run-dir <run dir> --out out/graph_audit.json
@@ -133,6 +133,29 @@ BioPathNet scores (in its environment, from `biopathnet_repro/`):
 ```
 
 The seed-averaged BioPathNet dumps use `calib_ensemble.py ... --fixed 1,0,0` with the BioPathNet method as `--a`.
+
+## Checking the PathArrowNet results
+
+The evaluation scripts in the next section compare PathArrowNet with the baselines, BioPathNet and the ablation variants,
+and each reads the score dumps of every method in its table. The PathArrowNet rows of Table 1 need only the released
+checkpoints: write the dumps of the 25 runs (five settings `strict_v1_full`, `strict_s43_full` ... `strict_s46_full`,
+seeds 42-46) and the five seed averages with the commands above, then
+
+```
+python -c "
+import sys; sys.path.insert(0, 'evaluation')
+import common as C
+for st in C.STS: print(C.SPLIT[st], '%.3f %.3f' % (C.rr(st, C.PAN).mean(), C.rr(st, C.PAN_SA).mean()))"
+```
+
+prints the test MRR of task A per split (single model, seed-averaged):
+
+| | split 1 | split 2 | split 3 | split 4 | split 5 |
+|---|---|---|---|---|---|
+| PathArrowNet, single model | 0.103 | 0.094 | 0.090 | 0.103 | 0.157 |
+| PathArrowNet, seed-averaged | 0.117 | 0.107 | 0.100 | 0.123 | 0.207 |
+
+On CPU the scores differ from the GPU dumps of the paper by at most 4e-5 and give the same top-10 for every anchor.
 
 ## Reproducing the paper
 
